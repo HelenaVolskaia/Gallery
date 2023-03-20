@@ -16,11 +16,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-scripts": "5.0.1",
+    "react-use": "^17.4.0",
     "three": "0.146.0",
     "uuid-by-string": "4.0.0",
     "wouter": "2.8.0-alpha.2"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

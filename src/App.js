@@ -4,9 +4,11 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { useCursor, MeshReflectorMaterial, Image, Text, Environment, Html } from '@react-three/drei'
 import { useRoute, useLocation } from 'wouter'
 import { easing } from 'maath'
+import { useWindowSize } from "react-use";
 import getUuid from 'uuid-by-string'
 
 const GOLDENRATIO = 1.61803398875
+
 
 export const App = ({ images }) => (
   <Canvas dpr={[1, 1.5]} camera={{ fov: 70, position: [0, 2, 15] }}>
@@ -71,7 +73,6 @@ function Frame({ url, c = new THREE.Color(), ...props }) {
   const [hovered, hover] = useState(false)
   const [rnd] = useState(() => Math.random())
   const name = getUuid(url)
-  console.log("PROPS", props.opensea)
   const isActive = params?.id === name
   useCursor(hovered)
   useFrame((state, dt) => {
@@ -79,6 +80,12 @@ function Frame({ url, c = new THREE.Color(), ...props }) {
     easing.damp3(image.current.scale, [0.85 * (!isActive && hovered ? 0.85 : 1), 0.9 * (!isActive && hovered ? 0.905 : 1), 1], 0.1, dt)
     easing.dampC(frame.current.material.color, hovered ? 'orange' : 'white', 0.1, dt)
   })
+  const { width } = useWindowSize();
+  const isMobile = width <= 820;
+
+  const desktopTextPositon = [0.55, GOLDENRATIO, 0];
+  const mobileTextPositon =  [0.25, 1.5, 0];
+
   return (
     <group {...props}>
       <mesh
@@ -95,13 +102,13 @@ function Frame({ url, c = new THREE.Color(), ...props }) {
         </mesh>
         <Image raycast={() => null} ref={image} position={[0, 0, 0.9]} url={url} />
       </mesh>
-      <Text maxWidth={0.1} anchorX="left" anchorY="top" position={[0.55, GOLDENRATIO, 0]} fontSize={0.025}>
+      <Text maxWidth={0.1} anchorX="left" anchorY="top" position={desktopTextPositon} fontSize={0.025}>
         {props.nftName}
       </Text>
       {
         isActive && (
-          <Html position={[0.55, 1.5, 0]} >
-            <a href={props.opensea} style={{ color: "white" }}>
+          <Html position={isMobile ? mobileTextPositon : [0.55, 1.5, 0]} >
+            <a href={props.opensea} style={{ color: "white", textDecoration: "none", backgroundColor: "black" }}>
               OpenSea
             </a>
           </Html>
