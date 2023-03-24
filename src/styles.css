@@ -10,9 +10,37 @@ body,
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background-color: black;
+
 }
 
 body {
   color: white;
   user-select: none;
+}
+
+.overlay {
+  padding: 40px;
+  height: 100%;
+  width: 50%;
+  margin: 30%;
+  position: absolute;
+  margin-top: 70%;
+  background-color: #ff00006e;
+  text-align: center;
+  height: 200px;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.close svg {
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  right: 0;
 }

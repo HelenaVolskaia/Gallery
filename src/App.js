@@ -9,32 +9,58 @@ import getUuid from 'uuid-by-string'
 
 const GOLDENRATIO = 1.61803398875
 
+const Close = () => {
+  return (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  )
+}
+export const App = ({ images }) => {
+  const { width } = useWindowSize();
+  const isMobile = width <= 620;
+  const [warning, setWarning] = useState(isMobile)
 
-export const App = ({ images }) => (
-  <Canvas dpr={[1, 1.5]} camera={{ fov: 70, position: [0, 2, 15] }}>
-    <color attach="background" args={['#191920']} />
-    <fog attach="fog" args={['#191920', 0, 15]} />
-    <group position={[0, -0.5, 0]}>
-      <Frames images={images} />
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[50, 50]} />
-        <MeshReflectorMaterial
-          blur={[300, 100]}
-          resolution={2048}
-          mixBlur={1}
-          mixStrength={50}
-          roughness={1}
-          depthScale={1.2}
-          minDepthThreshold={0.4}
-          maxDepthThreshold={1.4}
-          color="#050505"
-          metalness={0.5}
-        />
-      </mesh>
-    </group>
-    <Environment preset="city" />
-  </Canvas>
-)
+  return (
+    <>
+      <Canvas dpr={[1, 1.5]} camera={{ fov: 70, position: [0, 2, 15] }}>
+        <color attach="background" args={['#191920']} />
+        <fog attach="fog" args={['#191920', 0, 15]} />
+        <group position={[0, -0.5, 0]}>
+          <Frames images={images} />
+          <mesh rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[50, 50]} />
+            <MeshReflectorMaterial
+              blur={[300, 100]}
+              resolution={2048}
+              mixBlur={1}
+              mixStrength={50}
+              roughness={1}
+              depthScale={1.2}
+              minDepthThreshold={0.4}
+              maxDepthThreshold={1.4}
+              color="#050505"
+              metalness={0.5}
+            />
+          </mesh>
+        </group>
+        <Environment preset="city" />
+      </Canvas>
+      {
+        (isMobile) && (
+          <div className="overlay" style={{ display: warning ? "block" : "none" }}>
+            <h2 onClick={() => setWarning(false)}>
+              I look better on laptop
+              <div  className='close'>
+                <Close />
+              </div>
+            </h2>
+          </div>
+        )
+      }
+    </>
+  )
+}
 
 function Frames({ images, q = new THREE.Quaternion(), p = new THREE.Vector3() }) {
   const ref = useRef()
@@ -84,7 +110,7 @@ function Frame({ url, c = new THREE.Color(), ...props }) {
   const isMobile = width <= 820;
 
   const desktopTextPositon = [0.55, GOLDENRATIO, 0];
-  const mobileTextPositon =  [0.25, 1.5, 0];
+  const mobileTextPositon = [0.25, 1.5, 0];
 
   return (
     <group {...props}>
