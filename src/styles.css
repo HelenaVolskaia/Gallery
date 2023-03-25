@@ -20,27 +20,45 @@ body {
 }
 
 .overlay {
-  padding: 40px;
-  height: 100%;
-  width: 50%;
-  margin: 30%;
-  position: absolute;
-  margin-top: 70%;
-  background-color: #ff00006e;
-  text-align: center;
-  height: 200px;
-  top: 0;
-  left: 0;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+}
+
+
+.overlay h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  padding: 1.5rem;
   cursor: pointer;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.overlay .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.overlay .close:hover {
+  color: #ccc;
 }
 
 .close svg {
-  height: 40px;
+  height: 30px;
   position: absolute;
-  top: 10px;
-  right: 0;
+  top: 0px;
+  right: 0px;
 }

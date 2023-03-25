@@ -49,12 +49,12 @@ export const App = ({ images }) => {
       {
         (isMobile) && (
           <div className="overlay" style={{ display: warning ? "block" : "none" }}>
-            <h2 onClick={() => setWarning(false)}>
-              I look better on laptop
-              <div  className='close'>
-                <Close />
-              </div>
+            <h2>
+              I look better on laptop 😉
             </h2>
+            <div className='close' onClick={() => setWarning(false)}>
+              <Close />
+            </div>
           </div>
         )
       }
